@@ -5,64 +5,85 @@
 ===================================== */
 
 // KONFIGURASI WHATSAPP
-// Ganti nomor di bawah dengan nomor WhatsApp kamu.
-// Gunakan kode negara 62 tanpa tanda +.
-
 const WHATSAPP_NUMBER = "6285175061704";
 
 // MENU NAVIGASI MOBILE
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
-menuToggle.addEventListener("click", function () {
-    navMenu.classList.toggle("active");
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", function () {
+        navMenu.classList.toggle("active");
 
-    if (navMenu.classList.contains("active")) {
-        menuToggle.textContent = "✕";
-    } else {
-        menuToggle.textContent = "☰";
-    }
-});
-
-// TUTUP MENU SETELAH LINK DIKLIK
-const navLinks = document.querySelectorAll("#navMenu a");
-
-navLinks.forEach(function (link) {
-    link.addEventListener("click", function () {
-        navMenu.classList.remove("active");
-        menuToggle.textContent = "☰";
+        menuToggle.textContent =
+            navMenu.classList.contains("active") ? "✕" : "☰";
     });
-});
 
-// WHATSAPP CONTACT
+    const navLinks = document.querySelectorAll("#navMenu a");
+
+    navLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+            navMenu.classList.remove("active");
+            menuToggle.textContent = "☰";
+        });
+    });
+}
+
+// FORM CONTACT KE WHATSAPP
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+    contactForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const project = document.getElementById("project").value;
+        const message = document.getElementById("message").value.trim();
+
+        if (!name || !email || !project || !message) {
+            alert("Mohon lengkapi semua formulir!");
+            return;
+        }
+
+        const whatsappMessage =
+            "Halo Fadhil Web Studio!\n\n" +
+            "Nama: " + name + "\n" +
+            "Email: " + email + "\n" +
+            "Jenis Website: " + project + "\n\n" +
+            "Pesan:\n" + message;
+
+        const whatsappURL =
+            "https://wa.me/" +
+            WHATSAPP_NUMBER +
+            "?text=" +
+            encodeURIComponent(whatsappMessage);
+
+        window.location.href = whatsappURL;
+    });
+}
+
+// TOMBOL WHATSAPP LAINNYA
 const whatsappButton = document.getElementById("whatsappButton");
 
-whatsappButton.addEventListener("click", function (event) {
-    event.preventDefault();
+if (whatsappButton) {
+    whatsappButton.addEventListener("click", function (event) {
+        event.preventDefault();
 
-    const message = `
-Halo Fadhil Web Studio!
+        const message =
+            "Halo Fadhil Web Studio! Saya tertarik membuat website.";
 
-Saya tertarik menggunakan jasa pembuatan website.
+        const whatsappURL =
+            "https://wa.me/" +
+            WHATSAPP_NUMBER +
+            "?text=" +
+            encodeURIComponent(message);
 
-Saya ingin mengetahui informasi lebih lanjut mengenai:
-- Jenis website
-- Paket harga
-- Proses pengerjaan
+        window.location.href = whatsappURL;
+    });
+}
 
-Mohon informasi lebih lanjut. Terima kasih!
-    `;
-
-    const whatsappURL =
-        "https://wa.me/" +
-        WHATSAPP_NUMBER +
-        "?text=" +
-        encodeURIComponent(message);
-
-    window.open(whatsappURL, "_blank");
-});
-
-// ANIMASI SAAT SCROLL
+// ANIMASI SCROLL
 const observerOptions = {
     threshold: 0.12
 };
@@ -85,13 +106,11 @@ animatedElements.forEach(function (element) {
     observer.observe(element);
 });
 
-// TAHUN FOOTER OTOMATIS
-const footerText = document.querySelector("footer p");
+// FOOTER YEAR
+const yearElement = document.getElementById("year");
 
-if (footerText) {
-    footerText.textContent =
-        "© " + new Date().getFullYear() +
-        " Fadhil Web Studio. All Rights Reserved.";
+if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
 }
 
 console.log("Fadhil Web Studio berhasil dijalankan!");
