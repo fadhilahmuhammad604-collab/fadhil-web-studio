@@ -1061,3 +1061,12 @@ footer > a:last-child {
         padding: 25px;
     }
 }
+
+
+/* FIX CONTACT PAGE CONTENT */
+
+.contact-page .reveal {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
